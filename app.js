@@ -1,6 +1,7 @@
 
 // jshint esversion:6
 //const functions = require("firebase-functions");
+require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
@@ -18,7 +19,11 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://admin-sonia:sonia26@cluster0.quojn.mongodb.net/blogDB", {useNewUrlParser: true});
+const uri=process.env.MONGO_URI;
+const options={
+  useNewUrlParser: true,
+}
+mongoose.connect(uri,options);
 
 const postSchema = {
   title: String,
